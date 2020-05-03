@@ -5,7 +5,7 @@
     "version": "1.1.0",
     "publisher": "karunamurti",
     "engines": {
-        "vscode": "^1.5.0"
+        "vscode": "^1.44.0"
     },
     "icon": "images/haml.png",
     "categories": [
@@ -19,12 +19,17 @@
         "Haml",
         "HAML"
     ],
-    "main": "./haml",
+    "main": "./out/haml",
     "activationEvents": [
         "onLanguage:haml"
     ],
     "scripts": {
-        "postinstall": "node ./node_modules/vscode/bin/install"
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "lint": "eslint src --ext ts",
+        "watch": "tsc -watch -p ./",
+        "pretest": "npm run compile && npm run lint",
+        "test": "node ./out/test/runTest.js"
     },
     "contributes": {
         "languages": [
@@ -77,7 +82,16 @@
         "publisherDisplayName": "Karuna Murti"
     },
     "devDependencies": {
-        "vscode": "^1.0.0",
-        "eslint": "^3.6.0"
+        "@types/vscode": "^1.44.0",
+        "@types/glob": "^7.1.1",
+        "@types/mocha": "^7.0.2",
+        "@types/node": "^13.11.0",
+        "eslint": "^6.8.0",
+        "@typescript-eslint/parser": "^2.26.0",
+        "@typescript-eslint/eslint-plugin": "^2.26.0",
+        "glob": "^7.1.6",
+        "mocha": "^7.1.1",
+        "typescript": "^3.8.3",
+        "vscode-test": "^1.3.0"
     }
 }
